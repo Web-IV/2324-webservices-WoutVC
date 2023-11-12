@@ -1,11 +1,10 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/snPWRHYg)
 # Examenopdracht Front-end Web Development / Web Services
 
 > Schrap hierboven wat niet past
 
-- Student: VOORNAAM NAAM
-- Studentennummer: xxxxxxxxx
-- E-mailadres: <mailto:voornaam.naam@student.hogent.be>
+- Student: Wout Van Cleemput
+- Studentennummer: 202181098
+- E-mailadres: wout.vancleemput@student.hogent.be
 
 ## Vereisten
 
@@ -20,8 +19,25 @@ Ik verwacht dat volgende software reeds geïnstalleerd is:
 
 ## Opstarten
 
-> Schrijf hier hoe we de applicatie starten (.env bestanden aanmaken, commando's om uit te voeren...)
+# Om deze applicatie te starten moet je deze gegevens in de .env zetten:
+
+NODE_ENV=development
+DATABASE_HOST="vichogent.be"
+DATABASE_PORT=40043
+DATABASE_USERNAME="181098wv"
+DATABASE_PASSWORD="cIDBHyRfGx1GspVWsase"
+
+# Als je een fout krijgt dat er een module niet gevonden is dan kan je al deze commando's uitvoeren:
+- yarn add koa
+- yarn add nodemon --dev
+- yarn add config
+- yarn add env-cmd
+- yarn add @koa/router
+- yarn add koa-bodyparser
+- yarn add @koa/cors
+
 
 ## Testen
 
 > Schrijf hier hoe we de testen uitvoeren (.env bestanden aanmaken, commando's om uit te voeren...)
+- yarn test
