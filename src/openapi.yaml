@@ -1,0 +1,173 @@
+openapi: 3.0.3
+info:
+  title: MyAPI
+  version: 1.0.0
+servers:
+  - url: https://localhost:9001
+tags:
+  - name: Game
+  - name: Category
+paths:
+  /api/Game:
+    get:
+      summary: Returns a list of games.
+      operationId: getGames
+      responses:
+        '200':
+          description: Successful response
+      tags:
+        - Game
+    post:
+      summary: Creates a game.
+      operationId: createGame
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                img:
+                  type: string
+                description:
+                  type: string
+                console:
+                  type: string
+                category:
+                  type: string
+                categoryId:
+                  type: string
+                prijs:
+                  type: integer
+              required:
+                - name
+                - img
+                - description
+                - console
+                - category
+                - categoryId
+                - prijs
+      responses:
+        '201':
+          description: Created
+      tags:
+        - Game
+  /api/Game/{Id}:
+    parameters:
+      - name: Id
+        in: path
+        description: ID of the game
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Returns a specific game.
+      operationId: getGameById
+      responses:
+        '200':
+          description: Successful response
+      tags:
+        - Game
+    put:
+      summary: Updates an existing game.
+      operationId: updateGameById
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                img:
+                  type: string
+                description:
+                  type: string
+                console:
+                  type: string
+                category:
+                  type: string
+                categoryId:
+                  type: string
+                prijs:
+                  type: integer
+              required:
+                - name
+                - img
+                - description
+                - console
+                - category
+                - categoryId
+                - prijs
+      responses:
+        '200':
+          description: Successful response
+      tags:
+        - Game
+    delete:
+      summary: Deletes an existing game.
+      operationId: deleteGameById
+      responses:
+        '204':
+          description: No content
+      tags:
+        - Game
+
+  /api/Category:
+    get:
+      summary: Returns a list of categories.
+      operationId: getCategories
+      responses:
+        '200':
+          description: Successful response
+      tags:
+        - Category
+    post:
+      summary: Creates a category.
+      operationId: createCategory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+              required:
+                - id
+                - name
+      responses:
+        '201':
+          description: Created
+      tags:
+        - Category
+  /api/Category/{Id}:
+    parameters:
+      - name: Id
+        in: path
+        description: ID of the category
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Returns a specific category.
+      operationId: getCategoryById
+      responses:
+        '200':
+          description: Successful response
+      tags:
+        - Category
+    delete:
+      summary: Deletes an existing category.
+      operationId: deleteCategoryById
+      responses:
+        '204':
+          description: No content
+      tags:
+        - Category

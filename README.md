@@ -1,6 +1,4 @@
-# Examenopdracht Front-end Web Development / Web Services
-
-> Schrap hierboven wat niet past
+# Examenopdracht Web Services
 
 - Student: Wout Van Cleemput
 - Studentennummer: 202181098
@@ -13,9 +11,6 @@ Ik verwacht dat volgende software reeds geïnstalleerd is:
 - [NodeJS](https://nodejs.org)
 - [Yarn](https://yarnpkg.com)
 - [MySQL Community Server](https://dev.mysql.com/downloads/mysql/)
-- ...
-
-> Vul eventueel aan
 
 ## Opstarten
 
@@ -35,9 +30,11 @@ DATABASE_PASSWORD="cIDBHyRfGx1GspVWsase"
 - yarn add @koa/router
 - yarn add koa-bodyparser
 - yarn add @koa/cors
+- yarn add yamljs
+- yarn add swagger-ui-react swagger-ui
+- yarn add koa-static
 
 
 ## Testen
 
-> Schrijf hier hoe we de testen uitvoeren (.env bestanden aanmaken, commando's om uit te voeren...)
 - yarn test
