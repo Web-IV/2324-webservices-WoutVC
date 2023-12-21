@@ -32,14 +32,22 @@ Mijn project gaat over een website dat games verkoopt. ![ERD](ERD.png)
 
 ## API calls
 
-> Maak hier een oplijsting van alle API cals in jouw applicatie. Groepeer dit per entiteit. Hieronder een voorbeeld.
-> Dit is weinig zinvol indien je enkel Front-end Web Development volgt, verwijder dan deze sectie.
-> Indien je als extra Swagger koos, dan voeg je hier een link toe naar jouw online documentatie. Swagger geeft nl. exact (en nog veel meer) wat je hieronder moet schrijven.
+### Categories
 
-### Gebruikers
+- `GET /api/categories`: alle categorieën ophalen
+- `GET /api/categories/:id`: categorie met een bepaald id ophalen
+- `POST /api/categories`: een nieuwe categorie toevoegen
+- `PUT /api/categories/:id`: een bestaande categorie bijwerken
+- `DELETE /api/categories/:id`: een categorie verwijderen
 
-- `GET /api/users`: alle gebruikers ophalen
-- `GET /api/users/:id`: gebruiker met een bepaald id ophalen
+### Games
+
+- `GET /api/games`: alle games ophalen
+- `GET /api/games/:id`: game met een bepaald id ophalen
+- `POST /api/games`: een nieuwe game toevoegen
+- `PUT /api/games/:id`: een bestaande game bijwerken
+- `DELETE /api/games/:id`: een game verwijderen
+  
 
 ## Behaalde minimumvereisten
 
@@ -147,14 +155,15 @@ https://www.npmjs.com/package/eslint
 ### Web Services
 
 Het test of er games en categories toegevoegd kunnen worden en verwijderd.
-![TestWebServices](TestWebServices.png)
+Er wordt ook getest als je een game kunt krijgen met alleen een id te geven,
+en of het mogelijk is om een game bij te werken (updaten).
 ![TestWebServicesResult](TestWebServicesResult.png)
 
 ## Gekende bugs
 
 ### Web Services
 
-> Sequalize werkt niet
+> Sequalize en swagger werkt niet
 
 ## Wat is er verbeterd/aangepast?
 
@@ -162,4 +171,5 @@ Het test of er games en categories toegevoegd kunnen worden en verwijderd.
 
 ### Web Services
 
-- Oh en dit ook
+- Geprobeert om swagger te implementeren
+- Paar testen toegevoegd

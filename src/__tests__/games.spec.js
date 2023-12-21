@@ -16,7 +16,6 @@ let knex;
 		id: 10,
 		name: 'Test2',
 	  },
-	  // Add more categories as needed
 	],
 	games: [
 		{
@@ -77,4 +76,54 @@ let knex;
 	  .whereIn('id', dataToDelete.categories)
 	  .delete();
   
+  });  
+
+  test('PUT /api/games/:id should update an existing game', async () => {
+	const existingGame = data.games[0];
+	const updatedGame = {
+	  name: 'UpdatedTestGame',
+	  description: 'Updated test.',
+	  prijs: 50,
+	};
+  
+	await knex(tables.game).insert(existingGame);
+  
+	const response = await request.put(`${url}/${existingGame.id}`).send(updatedGame);
+  
+	expect(response.status).toBe(200);
+	expect(response.body.id).toBe(existingGame.id);
+	expect(response.body.name).toBe(updatedGame.name);
+	expect(response.body.description).toBe(updatedGame.description);
+	expect(response.body.prijs).toBe(updatedGame.prijs);
+  
+	await knex(tables.game).where('id', existingGame.id).delete();
+  });
+
+
+  test('GET /api/games/:id should return a single game by ID', async () => {
+	const existingGame = data.games[0];
+  
+	await knex(tables.game).insert(existingGame);
+  
+	const response = await request.get(`${url}/${existingGame.id}`);
+  
+	expect(response.status).toBe(200);
+	expect(response.body.id).toBe(existingGame.id);
+  
+	// Clean up: Delete the created game
+	await knex(tables.game).where('id', existingGame.id).delete();
+  });
+
+  test('DELETE /api/games/:id should delete an existing game', async () => {
+	const existingGame = data.games[0];
+  
+	await knex(tables.game).insert(existingGame);
+  
+	const response = await request.delete(`${url}/${existingGame.id}`);
+  
+	expect(response.status).toBe(204);
+  
+	// Verify that the game is deleted
+	const deletedGame = await knex(tables.game).where('id', existingGame.id).first();
+	expect(deletedGame).toBeUndefined();
   });
