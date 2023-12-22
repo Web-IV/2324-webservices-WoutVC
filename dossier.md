@@ -1,4 +1,4 @@
-# Voornaam Familienaam (Studentennummer)
+# Wout Van Cleemput (202181098)
 
 - [X] Web Services: [GITHUB URL](https://github.com/Web-IV/2324-webservices-WoutVC)
   - [GitHub repository](github.com/HOGENT-Web)
