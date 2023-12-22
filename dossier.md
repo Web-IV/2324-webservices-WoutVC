@@ -9,11 +9,8 @@
 - Gebruikersnaam/e-mailadres: e2e-testing@gameapp.be
 - Wachtwoord: Test1234!
 
-> Vul eventueel aan met extra accounts voor administrators of andere rollen.
 
 ## Projectbeschrijving
-
-> Omschrijf hier duidelijk waarover jouw project gaat. Voeg een domeinmodel (of EERD) toe om jouw entiteiten te verduidelijken.
 
 Mijn project gaat over een website dat games verkoopt. ![ERD](ERD.png)
 
