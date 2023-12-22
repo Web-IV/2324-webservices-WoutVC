@@ -7,6 +7,18 @@ let request;
 let knex;
   
   const data = {
+	users: [
+		{
+		  id: 4,
+		  username: 'TestUser',
+		  games: JSON.stringify([1, 3, 5]),
+		},
+		{
+		  id: 5,
+		  username: 'AnotherUser',
+		  games: JSON.stringify([2, 4, 6]),
+		},
+	  ],
 	categories: [
 	  {
 		id: 9,
@@ -44,6 +56,7 @@ let knex;
   const dataToDelete = {
 	games: [17, 18],
 	categories: [9, 10],
+	user: [9, 10],
 	};
 
   beforeAll(async () => {
@@ -56,14 +69,16 @@ let knex;
 	await server.stop();
   });
   
-  const url = '/api/games';
+  const gameUrl = '/api/games';
+  const categoryUrl = '/api/category';
+  const userUrl = '/api/users';
   
   
   test('GET /api/games should return all games', async () => {
 	await knex(tables.game).insert(data.games);
 	await knex(tables.category).insert(data.categories);
   
-	const response = await request.get(url);
+	const response = await request.get(gameUrl);
   
 	expect(response.status).toBe(200);
 	expect(response.body.items.length).toBe(18);
@@ -88,7 +103,7 @@ let knex;
   
 	await knex(tables.game).insert(existingGame);
   
-	const response = await request.put(`${url}/${existingGame.id}`).send(updatedGame);
+	const response = await request.put(`${gameUrl}/${existingGame.id}`).send(updatedGame);
   
 	expect(response.status).toBe(200);
 	expect(response.body.id).toBe(existingGame.id);
@@ -105,7 +120,7 @@ let knex;
   
 	await knex(tables.game).insert(existingGame);
   
-	const response = await request.get(`${url}/${existingGame.id}`);
+	const response = await request.get(`${gameUrl}/${existingGame.id}`);
   
 	expect(response.status).toBe(200);
 	expect(response.body.id).toBe(existingGame.id);
@@ -119,11 +134,77 @@ let knex;
   
 	await knex(tables.game).insert(existingGame);
   
-	const response = await request.delete(`${url}/${existingGame.id}`);
+	const response = await request.delete(`${gameUrl}/${existingGame.id}`);
   
 	expect(response.status).toBe(204);
   
 	// Verify that the game is deleted
 	const deletedGame = await knex(tables.game).where('id', existingGame.id).first();
 	expect(deletedGame).toBeUndefined();
+  });
+
+  test('GET /api/users should return all users', async () => {
+	await knex(tables.user).insert(data.users);
+  
+	const response = await request.get(userUrl);
+  
+	expect(response.status).toBe(200);
+	expect(response.body.length).toBe(5);
+  
+	await knex(tables.user).whereIn('id', data.users.map((user) => user.id)).del();
+  });
+  
+  test('GET /api/users/:id should return a single user by ID', async () => {
+	const existingUser = data.users[0];
+  
+	await knex(tables.user).insert(existingUser);
+  
+	const response = await request.get(`${userUrl}/${existingUser.id}`);
+  
+	expect(response.status).toBe(200);
+	expect(response.body.id).toBe(existingUser.id);
+  
+	// Clean up: Delete the created user
+	await knex(tables.user).where('id', existingUser.id).delete();
+  }); 
+
+  test('GET /api/category should return all categories', async () => {
+	await knex(tables.category).insert(data.categories);
+  
+	const response = await request.get(categoryUrl);
+  
+	expect(response.status).toBe(200);
+	expect(response.body.length).toBe(10);
+  
+	await knex(tables.category)
+		.whereIn('id', dataToDelete.categories)
+		.delete();
+  });
+  
+  test('GET /api/category/:id should return a single category by ID', async () => {
+	const existingCategory = data.categories[0];
+  
+	await knex(tables.category).insert(existingCategory);
+  
+	const response = await request.get(`${categoryUrl}/${existingCategory.id}`);
+  
+	expect(response.status).toBe(200);
+	expect(response.body.id).toBe(existingCategory.id);
+  
+	// Clean up: Delete the created category
+	await knex(tables.category).where('id', existingCategory.id).delete();
+  });
+  
+  test('DELETE /api/category/:id should delete an existing category', async () => {
+	const existingCategory = data.categories[0];
+  
+	await knex(tables.category).insert(existingCategory);
+  
+	const response = await request.delete(`${categoryUrl}/${existingCategory.id}`);
+  
+	expect(response.status).toBe(204);
+  
+	// Verify that the category is deleted
+	const deletedCategory = await knex(tables.category).where('id', existingCategory.id).first();
+	expect(deletedCategory).toBeUndefined();
   });

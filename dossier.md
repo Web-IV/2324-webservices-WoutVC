@@ -1,6 +1,6 @@
 # Voornaam Familienaam (Studentennummer)
 
-- [X] Web Services: [GITHUB URL](https://github.com/Web-IV/2223-webservices-WoutVC/tree/main)
+- [X] Web Services: [GITHUB URL](https://github.com/Web-IV/2324-webservices-WoutVC)
   - [GitHub repository](github.com/HOGENT-Web)
   - [Online versie](github.com/HOGENT-Web)
 
@@ -47,6 +47,15 @@ Mijn project gaat over een website dat games verkoopt. ![ERD](ERD.png)
 - `POST /api/games`: een nieuwe game toevoegen
 - `PUT /api/games/:id`: een bestaande game bijwerken
 - `DELETE /api/games/:id`: een game verwijderen
+
+### Gebruikers
+
+- `GET /api/users`: alle gebruikers ophalen
+- `GET /api/users/:id`: gebruiker met een bepaald ID ophalen
+- `POST /api/users`: een nieuwe gebruiker toevoegen
+- `PUT /api/users/:id`: een bestaande gebruiker bijwerken
+- `DELETE /api/users/:id`: een gebruiker verwijderen
+- `GET /api/users/:id/games`: Haal de games op die aan een gebruiker zijn gekoppeld.
   
 
 ## Behaalde minimumvereisten
@@ -85,11 +94,11 @@ Mijn project gaat over een website dat games verkoopt. ![ERD](ERD.png)
 
 - **algemeen**
 
-  - [ ] er is een minimum aan logging voorzien
+  - [X] er is een minimum aan logging voorzien
   - [X] een aantal niet-triviale integratietesten (min. 1 controller >=80% coverage)
   - [X] minstens één extra technologie
-  - [ ] maakt gebruik van de laatste ES-features (async/await, object destructuring, spread operator...)
-  - [ ] duidelijke en volledige README.md
+  - [X] maakt gebruik van de laatste ES-features (async/await, object destructuring, spread operator...)
+  - [X] duidelijke en volledige README.md
   - [X] volledig en tijdig ingediend dossier en voldoende commits (de meeste commits zijn nog van vorig jaar https://github.com/Web-IV/2223-webservices-WoutVC)
 
 ## Projectstructuur
@@ -110,20 +119,24 @@ C:.
 |   +---migrations
 |   |       202212201521_createGameTable.js
 |   |       202304251635_createCategoryTable.js
+|   |       202312221455_createUserTable
 |   |       
 |   \---seeds
 |           202105251900_resetDb.js
 |           202212201527_games.js
 |           202304251636_category.js
+|           202312221455_users
 |
 +---models
 |       Category.js
 |       Game.js
 |       sequalize.js
+|       User.js
 |       
 +---repository
 |       category.js
 |       game.js
+|       user.js
 |       
 +---rest
 |       index.js
@@ -131,11 +144,13 @@ C:.
 |       _games.js
 |       _health.js
 |       _validation.js
+|       _users.js
 |       
 +---service
 |       category.js
 |       game.js
 |       health.js
+|       user.js
 |
 \---__tests__
         games.spec.js
@@ -154,22 +169,24 @@ https://www.npmjs.com/package/eslint
 
 ### Web Services
 
-Het test of er games en categories toegevoegd kunnen worden en verwijderd.
+Het test of er games, users en categories toegevoegd kunnen worden en verwijderd.
 Er wordt ook getest als je een game kunt krijgen met alleen een id te geven,
 en of het mogelijk is om een game bij te werken (updaten).
+
+Voor de users en categorieën wordt er getest als je alle users/categorieën kan zien en dat je een user/categorie kan zien met een bepaalde id.
+
 ![TestWebServicesResult](TestWebServicesResult.png)
 
 ## Gekende bugs
 
 ### Web Services
 
-> Sequalize en swagger werkt niet
+- Sequalize en swagger werkt niet
 
 ## Wat is er verbeterd/aangepast?
-
-> Deze sectie is enkel voor 2e zittijd, verwijder deze in 1e zittijd.
 
 ### Web Services
 
 - Geprobeert om swagger te implementeren
-- Paar testen toegevoegd
+- 8 testen toegevoegd
+- De User entiteit toegevoegd

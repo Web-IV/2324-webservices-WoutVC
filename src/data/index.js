@@ -126,6 +126,7 @@ function getKnex() {
 const tables = {
   game: 'games',
   category: "category",
+  user: 'users',
 };
 
 module.exports = {

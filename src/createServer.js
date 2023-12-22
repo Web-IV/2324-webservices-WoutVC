@@ -2,11 +2,12 @@ const Koa = require('koa');
 const config = require('config');
 const koaCors = require('@koa/cors');
 const bodyParser = require('koa-bodyparser');
+const yamljs = require('yamljs');
 const { initializeLogger, getLogger } = require('./core/logging');
 const { initializeData, shutdownData } = require('./data');
 const installRest = require('./rest');
-const serve = require('koa-static');
 const path = require('path');
+const koaSwagger = require('koa2-swagger-ui');
 
 const NODE_ENV = config.get('env');
 const CORS_ORIGINS = config.get('cors.origins');
@@ -25,17 +26,15 @@ module.exports = async function createServer() {
   // Initialize data (assuming it's a database or some other data source)
   await initializeData();
 
-  // Create a Koa app and an Express app
+  // Create a Koa app
   const app = new Koa();
 
   // Add CORS middleware in Koa
   app.use(
     koaCors({
       origin: (ctx) => {
-        if (CORS_ORIGINS.indexOf(ctx.request.header.origin) !== -1) {
-          return ctx.request.header.origin;
-        }
-        return CORS_ORIGINS[0];
+        const requestOrigin = ctx.request.header.origin;
+        return CORS_ORIGINS.includes(requestOrigin) ? requestOrigin : CORS_ORIGINS[0];
       },
       allowHeaders: ['Accept', 'Content-Type', 'Authorization'],
       maxAge: CORS_MAX_AGE,
@@ -48,11 +47,24 @@ module.exports = async function createServer() {
   // Body parser middleware in Koa
   app.use(bodyParser());
 
-  // Serve Swagger definition JSON (assuming you have a route that serves the JSON)
-  app.use(serve(path.join(__dirname, 'public'))); // Assuming your Swagger JSON is in the 'public' directory
+  
+  /*const spec = yamljs.load(path.join(__dirname, 'openapi.yaml'));
+  app.use(
+    koaSwagger({
+      routePrefix: '/swagger',
+      swaggerOptions: {
+        spec,
+      },
+    })
+  );*/
 
   // Install REST routes in Koa
   installRest(app);
+
+  // Start Koa server on port 9000
+  const port = 9000;
+  app.listen(port);
+  logger.info(`🚀 Koa Server listening on http://localhost:${port}`);
 
   // Return an object with functions to get the app, start, and stop the server
   return {
@@ -62,10 +74,6 @@ module.exports = async function createServer() {
 
     start() {
       return new Promise((resolve) => {
-        // Start Koa server on port 9000
-        app.listen(9000);
-        logger.info('🚀 Koa Server listening on http://localhost:9000');
-
         resolve();
       });
     },

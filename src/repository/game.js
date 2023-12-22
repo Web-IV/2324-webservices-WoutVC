@@ -24,7 +24,7 @@ const findByName = (name) => {
 /**
  * Find a game with the given `id`.
  *
- * @param {number} id - Id of the place to find.
+ * @param {number} id - Id of the game to find.
  */
 const findById = (id) => {
   return getKnex()(tables.game)
@@ -33,7 +33,7 @@ const findById = (id) => {
 };
 
 /**
- * Calculate the total number of places.
+ * Calculate the total number of games.
  */
 const findCount = async () => {
   const [count] = await getKnex()(tables.game)

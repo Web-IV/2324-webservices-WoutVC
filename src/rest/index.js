@@ -3,6 +3,7 @@ const Router = require('@koa/router');
 const installHealthRouter = require('./_health');
 const installGameRouter = require('./_games');
 const installCategoryRouter = require('./_categories');
+const installUserRouter = require('./_users');
 /**
  * @openapi
  * components:
@@ -133,7 +134,8 @@ module.exports = (app) => {
 
   installHealthRouter(router);
   installGameRouter(router);
-  installCategoryRouter(router)
+  installCategoryRouter(router);
+  installUserRouter(router);
 
   app.use(router.routes()).use(router.allowedMethods());
 };

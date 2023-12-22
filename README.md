@@ -33,6 +33,8 @@ DATABASE_PASSWORD="cIDBHyRfGx1GspVWsase"
 - yarn add yamljs
 - yarn add swagger-ui-react swagger-ui
 - yarn add koa-static
+- yarn add swagger-jsdoc koa2-swagger-ui
+- yarn add koa-router
 
 
 ## Testen
